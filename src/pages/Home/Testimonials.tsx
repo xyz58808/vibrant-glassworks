@@ -17,7 +17,7 @@ const testimonials = [
     id: 2,
     name: 'Priya Sharma',
     position: 'Marketing Director, Wellness Plus',
-    content: 'We've been working with YZAG for our digital marketing needs for over a year now. Their strategies have helped us reach new audiences and establish our brand in a competitive market. They're responsive, detail-oriented, and results-driven.',
+    content: 'We\'ve been working with YZAG for our digital marketing needs for over a year now. Their strategies have helped us reach new audiences and establish our brand in a competitive market. They\'re responsive, detail-oriented, and results-driven.',
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aW5kaWFuJTIwYnVzaW5lc3N3b21hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
   },
   {
