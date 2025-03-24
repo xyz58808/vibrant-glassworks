@@ -105,7 +105,7 @@ const servicesData = [
       },
       {
         title: 'Technical SEO',
-        description: 'Improve your website's technical aspects to enhance search visibility.',
+        description: 'Improve your website\'s technical aspects to enhance search visibility.',
         icon: Code
       },
       {
@@ -124,7 +124,7 @@ const servicesData = [
     subServices: [
       {
         title: 'Logo Design',
-        description: 'Professional logos that capture your brand's essence and values.',
+        description: 'Professional logos that capture your brand\'s essence and values.',
         icon: Image
       },
       {
@@ -139,7 +139,7 @@ const servicesData = [
       },
       {
         title: 'Packaging Design',
-        description: 'Attractive and functional packaging that enhances your product's appeal.',
+        description: 'Attractive and functional packaging that enhances your product\'s appeal.',
         icon: ShoppingCart
       }
     ]

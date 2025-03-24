@@ -100,7 +100,7 @@ const serviceCategories: Category[] = [
       {
         id: 'seo-audit',
         name: 'SEO Audit',
-        description: 'Comprehensive analysis of your website's SEO performance',
+        description: 'Comprehensive analysis of your website\'s SEO performance',
         price: 5000
       },
       {
