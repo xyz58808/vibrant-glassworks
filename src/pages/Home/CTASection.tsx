@@ -22,20 +22,11 @@ const CTASection: React.FC = () => {
             Let's work together to create a digital strategy that helps your business reach new heights. Start with a free consultation today.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
+          <div className="flex justify-center">
+            <Link to="/calculator">
               <Button 
                 size="lg" 
                 className="bg-white text-yzag-blue hover:bg-white/90"
-              >
-                Get Started
-              </Button>
-            </Link>
-            <Link to="/calculator">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="text-white border-white hover:bg-white hover:text-yzag-blue"
               >
                 Use Service Calculator
               </Button>

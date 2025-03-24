@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SectionProps {
@@ -11,14 +11,16 @@ interface SectionProps {
   backgroundVariant?: 'default' | 'light' | 'dark' | 'gradient';
 }
 
-const Section: React.FC<SectionProps> = ({
+type SectionRef = HTMLElement;
+
+const Section = forwardRef<SectionRef, SectionProps>(({
   children,
   className,
   id,
   fullScreen = false,
   snapAlign = false,
   backgroundVariant = 'default',
-}) => {
+}, ref) => {
   const baseClasses = "w-full py-16 md:py-24";
   
   const variantClasses = {
@@ -33,6 +35,7 @@ const Section: React.FC<SectionProps> = ({
 
   return (
     <section
+      ref={ref}
       id={id}
       className={cn(
         baseClasses,
@@ -47,6 +50,8 @@ const Section: React.FC<SectionProps> = ({
       </div>
     </section>
   );
-};
+});
+
+Section.displayName = 'Section';
 
 export default Section;

@@ -1,6 +1,5 @@
-
 import React, { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import Section from '@/components/UI/Section';
 import Heading from '@/components/UI/Heading';
@@ -180,7 +179,6 @@ const Services: React.FC = () => {
   const servicesRefs = useRef<Record<string, HTMLElement | null>>({});
   
   useEffect(() => {
-    // Handle hash navigation
     if (location.hash) {
       const id = location.hash.replace('#', '');
       const element = servicesRefs.current[id];
@@ -196,7 +194,6 @@ const Services: React.FC = () => {
 
   return (
     <Layout>
-      {/* Hero section */}
       <Section backgroundVariant="dark">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-white/80 mb-6 animate-pulse-light">
@@ -225,60 +222,66 @@ const Services: React.FC = () => {
         </div>
       </Section>
 
-      {/* Individual service sections */}
-      {servicesData.map((service, index) => (
-        <Section 
-          key={service.id} 
-          id={service.id}
-          ref={(el) => { servicesRefs.current[service.id] = el; }}
-          backgroundVariant={index % 2 === 0 ? 'light' : 'default'}
-          className="py-24"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
-              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                <service.icon size={36} className="text-white" />
+      {servicesData.map((service, index) => {
+        const setSectionRef = (el: HTMLElement | null) => {
+          servicesRefs.current[service.id] = el;
+        };
+        
+        return (
+          <Section 
+            key={service.id} 
+            id={service.id}
+            backgroundVariant={index % 2 === 0 ? 'light' : 'default'}
+            className="py-24"
+          >
+            <div 
+              ref={setSectionRef} 
+              className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+            >
+              <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
+                  <service.icon size={36} className="text-white" />
+                </div>
+                
+                <Heading level={2} className="mb-6">
+                  {service.title}
+                </Heading>
+                
+                <p className="text-lg text-yzag-text/80 mb-8">
+                  {service.description}
+                </p>
+                
+                <Link to="/contact">
+                  <Button>
+                    Get Started with {service.title.split('&')[0]}
+                  </Button>
+                </Link>
               </div>
               
-              <Heading level={2} className="mb-6">
-                {service.title}
-              </Heading>
-              
-              <p className="text-lg text-yzag-text/80 mb-8">
-                {service.description}
-              </p>
-              
-              <Link to="/contact">
-                <Button>
-                  Get Started with {service.title.split('&')[0]}
-                </Button>
-              </Link>
-            </div>
-            
-            <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {service.subServices.map((subService, subIndex) => (
-                  <GlassCard 
-                    key={subIndex}
-                    className="h-full"
-                    animate
-                  >
-                    <subService.icon className="w-10 h-10 text-yzag-blue mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">
-                      {subService.title}
-                    </h3>
-                    <p className="text-yzag-text/70">
-                      {subService.description}
-                    </p>
-                  </GlassCard>
-                ))}
+              <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {service.subServices.map((subService, subIndex) => (
+                    <GlassCard 
+                      key={subIndex}
+                      className="h-full"
+                      animate
+                    >
+                      <subService.icon className="w-10 h-10 text-yzag-blue mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">
+                        {subService.title}
+                      </h3>
+                      <p className="text-yzag-text/70">
+                        {subService.description}
+                      </p>
+                    </GlassCard>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </Section>
-      ))}
+          </Section>
+        );
+      })}
 
-      {/* CTA Section */}
       <Section backgroundVariant="gradient">
         <div className="text-center max-w-3xl mx-auto">
           <Heading level={2} gradient center>

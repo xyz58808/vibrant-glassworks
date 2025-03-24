@@ -1,94 +1,105 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, TrendingUp, Palette, Database, Search } from 'lucide-react';
+import Section from '@/components/UI/Section';
 import Heading from '@/components/UI/Heading';
 import GlassCard from '@/components/UI/GlassCard';
-import Section from '@/components/UI/Section';
 import Button from '@/components/UI/Button';
+import { 
+  Globe, 
+  TrendingUp, 
+  Search, 
+  Palette, 
+  Database
+} from 'lucide-react';
 
 const services = [
   {
     id: 'web-design',
     title: 'Web Design & Development',
-    description: 'Create stunning, responsive websites with modern technologies',
-    icon: Globe,
-    color: 'from-blue-500 to-indigo-500'
+    description: 'Create stunning websites that convert visitors into customers',
+    icon: <Globe size={24} />,
+    color: 'from-blue-600 to-indigo-600',
+    delay: '0ms'
   },
   {
     id: 'digital-marketing',
     title: 'Digital Marketing',
-    description: 'Strategic marketing campaigns to boost your online presence',
-    icon: TrendingUp,
-    color: 'from-green-500 to-teal-500'
-  },
-  {
-    id: 'branding',
-    title: 'Branding & Design',
-    description: 'Build a strong identity with consistent branding elements',
-    icon: Palette,
-    color: 'from-purple-500 to-pink-500'
-  },
-  {
-    id: 'content',
-    title: 'Content Creation',
-    description: 'High-quality content that engages and converts your audience',
-    icon: Database,
-    color: 'from-yellow-500 to-orange-500'
+    description: 'Elevate your brand presence and reach your target audience',
+    icon: <TrendingUp size={24} />,
+    color: 'from-green-600 to-teal-600',
+    delay: '150ms'
   },
   {
     id: 'seo',
     title: 'SEO Optimization',
-    description: 'Improve your search engine rankings and drive organic traffic',
-    icon: Search,
-    color: 'from-red-500 to-rose-500'
+    description: 'Improve your rankings and drive organic traffic to your website',
+    icon: <Search size={24} />,
+    color: 'from-red-600 to-rose-600',
+    delay: '300ms'
+  },
+  {
+    id: 'branding',
+    title: 'Branding & Design',
+    description: 'Create a memorable brand identity that stands out from the crowd',
+    icon: <Palette size={24} />,
+    color: 'from-purple-600 to-pink-600',
+    delay: '450ms'
+  },
+  {
+    id: 'content',
+    title: 'Content Creation',
+    description: 'Engage your audience with high-quality, persuasive content',
+    icon: <Database size={24} />,
+    color: 'from-yellow-600 to-orange-600',
+    delay: '600ms'
   }
 ];
 
 const ServicesPreview: React.FC = () => {
   return (
-    <Section id="services-preview" fullScreen snapAlign backgroundVariant="gradient">
-      <div className="max-w-7xl mx-auto">
+    <Section id="services-preview" snapAlign>
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Heading level={2} gradient animated center>
-            Our Digital Services
+          <Heading level={2} gradient>
+            Our Services
           </Heading>
-          <p className="mt-4 text-lg text-yzag-text/80 max-w-2xl mx-auto">
-            We offer a comprehensive suite of digital services to help your business thrive online.
+          <p className="mt-4 text-yzag-text/70 text-lg max-w-2xl mx-auto">
+            We offer a comprehensive range of digital services to help your business succeed online.
           </p>
         </div>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <GlassCard
-              key={service.id}
-              animate
-              className="h-full flex flex-col justify-between opacity-0 animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div>
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                  <service.icon size={28} className="text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-yzag-text">{service.title}</h3>
-                <p className="text-yzag-text/70 mb-6">{service.description}</p>
-              </div>
-              <Link 
-                to={`/services#${service.id}`} 
-                className="text-yzag-blue font-medium inline-flex items-center hover:underline"
+          {services.map((service) => (
+            <div key={service.id} className="flex" style={{ animationDelay: service.delay }}>
+              <GlassCard
+                animate
+                className="h-full"
               >
-                Learn More
-                <svg className="w-4 h-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </GlassCard>
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4`}>
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <p className="text-yzag-text/70 mb-6">{service.description}</p>
+                <Link 
+                  to={`/services#${service.id}`} 
+                  className="text-yzag-blue hover:text-yzag-blue-dark font-medium inline-flex items-center"
+                >
+                  Learn More
+                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </Link>
+              </GlassCard>
+            </div>
           ))}
         </div>
-
+        
         <div className="text-center mt-12">
           <Link to="/services">
-            <Button size="lg">View All Services</Button>
+            <Button size="lg">
+              View All Services
+            </Button>
           </Link>
         </div>
       </div>

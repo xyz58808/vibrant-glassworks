@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import Section from '@/components/UI/Section';
 import Heading from '@/components/UI/Heading';
@@ -218,7 +218,6 @@ const Calculator: React.FC = () => {
   };
 
   const handleGeneratePDF = () => {
-    // In a real implementation, this would make an API call to generate the PDF server-side
     toast.success("Your quote has been generated! Check your email for the PDF.", {
       description: "We'll also follow up with you shortly to discuss the details.",
       duration: 5000,
