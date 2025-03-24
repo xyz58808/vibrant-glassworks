@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import Section from '@/components/UI/Section';
 import Heading from '@/components/UI/Heading';
@@ -8,6 +8,12 @@ import Button from '@/components/UI/Button';
 import { Home, ArrowLeft } from 'lucide-react';
 
 const NotFound: React.FC = () => {
+  const navigate = useNavigate();
+  
+  const goBack = () => {
+    navigate(-1);
+  };
+  
   return (
     <Layout>
       <Section fullScreen>
@@ -35,7 +41,7 @@ const NotFound: React.FC = () => {
             </Link>
             
             <button 
-              onClick={() => window.history.back()}
+              onClick={goBack}
               className="flex items-center justify-center px-6 py-3 rounded-full border-2 border-yzag-blue text-yzag-blue hover:bg-yzag-blue hover:text-white transition-all duration-300"
             >
               <ArrowLeft size={18} className="mr-2" />

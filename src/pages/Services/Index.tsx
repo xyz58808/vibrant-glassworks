@@ -248,9 +248,11 @@ const Services: React.FC = () => {
                 {service.description}
               </p>
               
-              <Button>
-                Get Started with {service.title.split('&')[0]}
-              </Button>
+              <Link to="/contact">
+                <Button>
+                  Get Started with {service.title.split('&')[0]}
+                </Button>
+              </Link>
             </div>
             
             <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
@@ -288,15 +290,19 @@ const Services: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg">
-              Contact Us
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-            >
-              View Pricing
-            </Button>
+            <Link to="/contact">
+              <Button size="lg">
+                Contact Us
+              </Button>
+            </Link>
+            <Link to="/calculator">
+              <Button 
+                variant="outline" 
+                size="lg"
+              >
+                View Pricing
+              </Button>
+            </Link>
           </div>
         </div>
       </Section>

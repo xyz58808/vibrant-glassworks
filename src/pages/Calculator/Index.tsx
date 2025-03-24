@@ -303,14 +303,16 @@ const Calculator: React.FC = () => {
                     <Download size={18} className="mr-2" />
                     Generate Quote PDF
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="flex items-center justify-center"
-                  >
-                    <Mail size={18} className="mr-2" />
-                    Email Quote
-                  </Button>
+                  <Link to="/contact">
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="flex items-center justify-center"
+                    >
+                      <Mail size={18} className="mr-2" />
+                      Email Quote
+                    </Button>
+                  </Link>
                 </>
               ) : (
                 <Button 
