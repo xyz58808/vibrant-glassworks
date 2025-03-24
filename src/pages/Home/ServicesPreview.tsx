@@ -60,29 +60,33 @@ const ServicesPreview: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <GlassCard
+            <div
               key={service.id}
-              animate
-              className="h-full flex flex-col justify-between opacity-0 animate-fade-in"
+              className={`opacity-0 animate-fade-in`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div>
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                  <service.icon size={28} className="text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-yzag-text">{service.title}</h3>
-                <p className="text-yzag-text/70 mb-6">{service.description}</p>
-              </div>
-              <Link 
-                to={`/services#${service.id}`} 
-                className="text-yzag-blue font-medium inline-flex items-center hover:underline"
+              <GlassCard
+                animate
+                className="h-full flex flex-col justify-between"
               >
-                Learn More
-                <svg className="w-4 h-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </GlassCard>
+                <div>
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
+                    <service.icon size={28} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-yzag-text">{service.title}</h3>
+                  <p className="text-yzag-text/70 mb-6">{service.description}</p>
+                </div>
+                <Link 
+                  to={`/services#${service.id}`} 
+                  className="text-yzag-blue font-medium inline-flex items-center hover:underline"
+                >
+                  Learn More
+                  <svg className="w-4 h-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </GlassCard>
+            </div>
           ))}
         </div>
 

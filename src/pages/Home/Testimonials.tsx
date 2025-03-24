@@ -53,7 +53,7 @@ const Testimonials: React.FC = () => {
 
   return (
     <Section id="testimonials" snapAlign backgroundVariant="dark">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <Heading level={2} center className="text-white">
             What Our Clients Say
@@ -66,12 +66,12 @@ const Testimonials: React.FC = () => {
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-none gap-6 pb-8 px-4 -mx-4 snap-x snap-mandatory"
+            className="flex overflow-x-auto scrollbar-none gap-6 pb-8 px-4 snap-x snap-mandatory"
           >
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="min-w-[300px] md:min-w-[400px] flex-shrink-0 snap-center"
+                className="min-w-[280px] md:min-w-[350px] flex-shrink-0 snap-center"
               >
                 <GlassCard variant="dark" className="h-full">
                   <Quote className="text-yzag-blue w-10 h-10 mb-4 opacity-50" />
@@ -94,14 +94,14 @@ const Testimonials: React.FC = () => {
 
           <button
             onClick={scrollLeft}
-            className="absolute top-1/2 left-0 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
+            className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
             aria-label="Previous"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={scrollRight}
-            className="absolute top-1/2 right-0 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
+            className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
             aria-label="Next"
           >
             <ChevronRight size={24} />

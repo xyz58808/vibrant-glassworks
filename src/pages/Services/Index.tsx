@@ -1,6 +1,6 @@
-
 import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import Section from '@/components/UI/Section';
 import Heading from '@/components/UI/Heading';
@@ -177,7 +177,7 @@ const servicesData = [
 
 const Services: React.FC = () => {
   const location = useLocation();
-  const servicesRefs = useRef<Record<string, HTMLElement | null>>({});
+  const servicesRefs = useRef<Record<string, HTMLDivElement | null>>({});
   
   useEffect(() => {
     // Handle hash navigation
@@ -227,53 +227,58 @@ const Services: React.FC = () => {
 
       {/* Individual service sections */}
       {servicesData.map((service, index) => (
-        <Section 
-          key={service.id} 
+        <div 
+          key={service.id}
           id={service.id}
-          ref={(el) => { servicesRefs.current[service.id] = el; }}
-          backgroundVariant={index % 2 === 0 ? 'light' : 'default'}
-          className="py-24"
+          ref={(el) => { servicesRefs.current[service.id] = el; }} 
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
-              <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
-                <service.icon size={36} className="text-white" />
+          <Section
+            backgroundVariant={index % 2 === 0 ? 'light' : 'default'}
+            className="py-24"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
+                  <service.icon size={36} className="text-white" />
+                </div>
+                
+                <Heading level={2} className="mb-6">
+                  {service.title}
+                </Heading>
+                
+                <p className="text-lg text-yzag-text/80 mb-8">
+                  {service.description}
+                </p>
+                
+                <Link to="/contact">
+                  <Button>
+                    Get Started with {service.title.split('&')[0]}
+                  </Button>
+                </Link>
               </div>
               
-              <Heading level={2} className="mb-6">
-                {service.title}
-              </Heading>
-              
-              <p className="text-lg text-yzag-text/80 mb-8">
-                {service.description}
-              </p>
-              
-              <Button>
-                Get Started with {service.title.split('&')[0]}
-              </Button>
-            </div>
-            
-            <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {service.subServices.map((subService, subIndex) => (
-                  <GlassCard 
-                    key={subIndex}
-                    className="h-full"
-                    animate
-                  >
-                    <subService.icon className="w-10 h-10 text-yzag-blue mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">
-                      {subService.title}
-                    </h3>
-                    <p className="text-yzag-text/70">
-                      {subService.description}
-                    </p>
-                  </GlassCard>
-                ))}
+              <div className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {service.subServices.map((subService, subIndex) => (
+                    <GlassCard 
+                      key={subIndex}
+                      className="h-full"
+                      animate
+                    >
+                      <subService.icon className="w-10 h-10 text-yzag-blue mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">
+                        {subService.title}
+                      </h3>
+                      <p className="text-yzag-text/70">
+                        {subService.description}
+                      </p>
+                    </GlassCard>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </Section>
+          </Section>
+        </div>
       ))}
 
       {/* CTA Section */}
@@ -288,15 +293,19 @@ const Services: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg">
-              Contact Us
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-            >
-              View Pricing
-            </Button>
+            <Link to="/contact">
+              <Button size="lg">
+                Contact Us
+              </Button>
+            </Link>
+            <Link to="/calculator">
+              <Button 
+                variant="outline" 
+                size="lg"
+              >
+                View Pricing
+              </Button>
+            </Link>
           </div>
         </div>
       </Section>
