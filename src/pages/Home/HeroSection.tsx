@@ -1,7 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
 import { ArrowDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import Button from '@/components/UI/Button';
 import Heading from '@/components/UI/Heading';
 import DecorativeBlob from '@/components/UI/DecorativeBlob';
@@ -63,20 +62,16 @@ const HeroSection: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/services">
-                <Button size="lg" className="hover:scale-105 transform transition-transform w-full sm:w-auto">
-                  Explore Our Services
-                </Button>
-              </Link>
-              <Link to="/contact">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="text-white border-white hover:bg-white hover:text-yzag-text w-full sm:w-auto"
-                >
-                  Get a Free Quote
-                </Button>
-              </Link>
+              <Button size="lg" className="hover:scale-105 transform transition-transform">
+                Explore Our Services
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="text-white border-white hover:bg-white hover:text-yzag-text"
+              >
+                Get a Free Quote
+              </Button>
             </div>
           </div>
         </div>

@@ -58,7 +58,7 @@ const Header: React.FC = () => {
               key={link.name}
               to={link.path}
               className={`transition-all duration-300 hover:text-yzag-blue ${
-                isScrolled ? 'text-yzag-text font-medium' : 'text-white'
+                isScrolled ? 'text-yzag-text' : 'text-white'
               } ${location.pathname === link.path ? 'font-semibold text-yzag-blue' : ''}`}
             >
               {link.name}
@@ -66,7 +66,7 @@ const Header: React.FC = () => {
           ))}
           <Link
             to="/contact"
-            className="bg-yzag-blue text-white px-6 py-2 rounded-full hover:bg-yzag-blue-dark transition-all duration-300"
+            className="bg-yzag-blue text-white px-6 py-2 rounded-full hover:bg-yzag-blue-dark transition-all duration-300 animate-pulse-light"
           >
             Get Quote
           </Link>
@@ -76,7 +76,6 @@ const Header: React.FC = () => {
         <button
           className="md:hidden text-yzag-blue"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>

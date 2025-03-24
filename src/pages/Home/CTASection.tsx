@@ -26,7 +26,7 @@ const CTASection: React.FC = () => {
             <Link to="/contact">
               <Button 
                 size="lg" 
-                className="bg-white text-yzag-blue hover:bg-white/90 w-full sm:w-auto"
+                className="bg-white text-yzag-blue hover:bg-white/90"
               >
                 Get Started
               </Button>
@@ -35,7 +35,7 @@ const CTASection: React.FC = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-white border-white hover:bg-white hover:text-yzag-blue w-full sm:w-auto"
+                className="text-white border-white hover:bg-white hover:text-yzag-blue"
               >
                 Use Service Calculator
               </Button>
