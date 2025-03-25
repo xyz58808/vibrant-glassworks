@@ -6,17 +6,40 @@ import { Menu, X } from 'lucide-react';
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLightSection, setIsLightSection] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 100);
+      
+      // Only check for light/dark sections on homepage
+      if (isHomePage) {
+        const heroSection = document.querySelector('section.bg-gradient-to-b');
+        const servicesSection = document.getElementById('services-preview');
+        
+        if (heroSection && servicesSection) {
+          const heroRect = heroSection.getBoundingClientRect();
+          const servicesRect = servicesSection.getBoundingClientRect();
+          
+          // Check if we're in a light section - when hero is out of view and services in view
+          if (heroRect.bottom < 100 && servicesRect.top < 100) {
+            setIsLightSection(true);
+          } else {
+            setIsLightSection(false);
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -29,6 +52,22 @@ const Header: React.FC = () => {
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
+
+  // Determine text color class based on scroll position and section background
+  const getTextColorClass = () => {
+    if (!isHomePage) {
+      return isScrolled ? 'text-yzag-text' : 'text-yzag-text';
+    }
+    
+    if (isScrolled) {
+      return 'text-yzag-text';
+    }
+    
+    return isLightSection ? 'text-yzag-text' : 'text-white';
+  };
+
+  const logoTextClass = getTextColorClass();
+  const linkTextClass = getTextColorClass();
 
   return (
     <header
@@ -43,9 +82,7 @@ const Header: React.FC = () => {
           to="/" 
           className="text-2xl font-bold flex items-center"
         >
-          <span className={`transition-all duration-500 ${
-            isScrolled ? 'text-yzag-text' : 'text-white'
-          }`}>
+          <span className={`transition-all duration-500 ${logoTextClass}`}>
             YZAG
           </span>
           <span className="text-yzag-blue ml-1">Digitals</span>
@@ -58,7 +95,7 @@ const Header: React.FC = () => {
               key={link.name}
               to={link.path}
               className={`transition-all duration-300 hover:text-yzag-blue ${
-                isScrolled ? 'text-yzag-text' : 'text-white'
+                linkTextClass
               } ${location.pathname === link.path ? 'font-semibold text-yzag-blue' : ''}`}
             >
               {link.name}
@@ -74,7 +111,9 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-yzag-blue"
+          className={`md:hidden transition-colors duration-300 ${
+            isLightSection || isScrolled ? 'text-yzag-text' : 'text-white'
+          }`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
