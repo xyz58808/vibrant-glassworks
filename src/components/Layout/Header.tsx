@@ -55,17 +55,14 @@ const Header: React.FC = () => {
 
   // Determine text color class based on scroll position and section background
   const getTextColorClass = () => {
-    // For non-homepage, always use dark text
     if (!isHomePage) {
-      return 'text-yzag-text';
+      return isScrolled ? 'text-yzag-text' : 'text-yzag-text';
     }
     
-    // For homepage, use dark text when scrolled or in light section
     if (isScrolled) {
       return 'text-yzag-text';
     }
     
-    // For homepage hero section (dark background)
     return isLightSection ? 'text-yzag-text' : 'text-white';
   };
 
@@ -85,7 +82,7 @@ const Header: React.FC = () => {
           to="/" 
           className="text-2xl font-bold flex items-center"
         >
-          <span className={`transition-colors duration-500 ${logoTextClass}`}>
+          <span className={`transition-all duration-500 ${logoTextClass}`}>
             YZAG
           </span>
           <span className="text-yzag-blue ml-1">Digitals</span>
@@ -97,7 +94,7 @@ const Header: React.FC = () => {
             <Link
               key={link.name}
               to={link.path}
-              className={`transition-colors duration-500 hover:text-yzag-blue ${
+              className={`transition-all duration-300 hover:text-yzag-blue ${
                 linkTextClass
               } ${location.pathname === link.path ? 'font-semibold text-yzag-blue' : ''}`}
             >
@@ -114,7 +111,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden transition-colors duration-500 ${
+          className={`md:hidden transition-colors duration-300 ${
             isLightSection || isScrolled ? 'text-yzag-text' : 'text-white'
           }`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
