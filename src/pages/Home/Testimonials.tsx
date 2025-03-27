@@ -4,6 +4,13 @@ import Heading from '@/components/UI/Heading';
 import GlassCard from '@/components/UI/GlassCard';
 import Section from '@/components/UI/Section';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 const testimonials = [
   {
@@ -37,23 +44,9 @@ const testimonials = [
 ];
 
 const Testimonials: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  };
-
   return (
     <Section id="testimonials" snapAlign backgroundVariant="dark">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <Heading level={2} center className="text-white">
             What Our Clients Say
@@ -64,48 +57,44 @@ const Testimonials: React.FC = () => {
         </div>
 
         <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-none gap-6 pb-8 px-4 -mx-4 snap-x snap-mandatory"
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
           >
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="min-w-[300px] md:min-w-[400px] flex-shrink-0 snap-center"
-              >
-                <GlassCard variant="dark" className="h-full">
-                  <Quote className="text-yzag-blue w-10 h-10 mb-4 opacity-50" />
-                  <p className="text-white/90 mb-6">{testimonial.content}</p>
-                  <div className="flex items-center">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover mr-4"
-                    />
-                    <div>
-                      <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                      <p className="text-white/60 text-sm">{testimonial.position}</p>
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {testimonials.map((testimonial) => (
+                <CarouselItem 
+                  key={testimonial.id} 
+                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <GlassCard variant="dark" className="h-full">
+                    <Quote className="text-yzag-blue w-10 h-10 mb-4 opacity-50" />
+                    <p className="text-white/90 mb-6">{testimonial.content}</p>
+                    <div className="flex items-center">
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover mr-4"
+                      />
+                      <div>
+                        <h4 className="font-semibold text-white">{testimonial.name}</h4>
+                        <p className="text-white/60 text-sm">{testimonial.position}</p>
+                      </div>
                     </div>
-                  </div>
-                </GlassCard>
-              </div>
-            ))}
-          </div>
-
-          <button
-            onClick={scrollLeft}
-            className="absolute top-1/2 left-0 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
-            aria-label="Previous"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={scrollRight}
-            className="absolute top-1/2 right-0 -translate-y-1/2 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20 transition-colors duration-300 hidden md:block"
-            aria-label="Next"
-          >
-            <ChevronRight size={24} />
-          </button>
+                  </GlassCard>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious 
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border-white/10"
+            />
+            <CarouselNext 
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white border-white/10"
+            />
+          </Carousel>
         </div>
       </div>
     </Section>
