@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import Heading from '@/components/UI/Heading';
 import GlassCard from '@/components/UI/GlassCard';
