@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Layout from '@/components/Layout/Layout';
 import Section from '@/components/UI/Section';
@@ -23,14 +24,18 @@ import {
   Image,
   Newspaper,
   Megaphone,
-  CheckCircle
+  CheckCircle,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 const servicesData = [
   {
     id: 'web-design',
     title: 'Web Design & Development',
     description: 'Create stunning websites that not only look great but also deliver exceptional user experiences.',
+    expandedDescription: 'Our web design and development services are crafted to create digital experiences that captivate your audience and drive business results. We follow a comprehensive approach that combines aesthetics with functionality, ensuring your website stands out in today\'s competitive digital landscape.\n\nWe start by understanding your business goals, target audience, and brand identity. This foundation allows us to create a custom design that reflects your unique vision while incorporating industry best practices for user experience and conversion optimization.\n\nEvery website we build is fully responsive, ensuring flawless performance across all devices and screen sizes. We also implement SEO best practices from the ground up, setting your site up for long-term success in search engine rankings.',
     icon: Globe,
     color: 'from-blue-600 to-indigo-600',
     subServices: [
@@ -60,6 +65,7 @@ const servicesData = [
     id: 'digital-marketing',
     title: 'Digital Marketing',
     description: 'Strategic marketing campaigns to increase your online visibility and connect with your target audience.',
+    expandedDescription: 'In today\'s digital landscape, having a strategic marketing approach is essential for business growth. Our digital marketing services are designed to increase your online visibility, engage your target audience, and drive measurable results.\n\nWe develop comprehensive digital marketing strategies tailored to your specific business goals, whether that\'s increasing brand awareness, generating leads, or driving sales. Our data-driven approach ensures that every campaign is optimized for maximum ROI.\n\nOur team stays at the forefront of digital marketing trends and best practices, allowing us to implement innovative tactics that keep you ahead of the competition. We provide regular reporting and analytics, giving you clear insights into campaign performance and the impact on your bottom line.',
     icon: TrendingUp,
     color: 'from-green-600 to-teal-600',
     subServices: [
@@ -89,6 +95,7 @@ const servicesData = [
     id: 'seo',
     title: 'SEO Optimization',
     description: 'Improve your search engine rankings to drive more organic traffic and quality leads to your website.',
+    expandedDescription: 'Search Engine Optimization is crucial for long-term online success. Our SEO services are designed to improve your search engine rankings, drive qualified organic traffic, and increase conversions.\n\nWe take a holistic approach to SEO, considering both on-page and off-page factors that influence your rankings. Our process begins with a comprehensive audit of your current website performance, identifying opportunities for improvement and developing a strategic roadmap for implementation.\n\nOur SEO experts stay updated with the latest algorithm changes and industry best practices, ensuring your strategy remains effective in an ever-evolving digital landscape. We focus on sustainable, white-hat techniques that build long-term value rather than quick fixes that could result in penalties.',
     icon: Search,
     color: 'from-red-600 to-rose-600',
     subServices: [
@@ -118,6 +125,7 @@ const servicesData = [
     id: 'branding',
     title: 'Branding & Design',
     description: 'Create a cohesive and compelling brand identity that resonates with your audience and sets you apart.',
+    expandedDescription: 'Your brand is more than just a logo—it\'s the complete experience customers have with your business. Our branding services help you create a distinct and memorable identity that resonates with your target audience and differentiates you from competitors.\n\nWe begin by understanding your brand values, mission, and target audience. This foundational work informs every aspect of our design process, ensuring that all visual elements are aligned with your brand strategy.\n\nOur comprehensive approach includes creating versatile brand assets that work across all touchpoints, from digital platforms to print materials. We provide detailed brand guidelines that ensure consistency in all future applications, helping you build brand recognition and equity over time.',
     icon: Palette,
     color: 'from-purple-600 to-pink-600',
     subServices: [
@@ -147,6 +155,7 @@ const servicesData = [
     id: 'content',
     title: 'Content Creation',
     description: 'Engaging and persuasive content that tells your brand story and drives audience engagement.',
+    expandedDescription: 'Content is the foundation of effective digital marketing and brand communication. Our content creation services help you tell your story, engage your audience, and drive meaningful actions.\n\nWe develop content strategies aligned with your business goals and target audience interests. Whether you need website copy, blog posts, social media content, or video scripts, our team creates compelling narratives that reflect your brand voice and resonate with your customers.\n\nAll our content is created with both users and search engines in mind, incorporating SEO best practices to improve visibility without sacrificing quality or readability. We also provide content calendars and implementation plans to ensure consistent publishing and maximum impact.',
     icon: Database,
     color: 'from-yellow-600 to-orange-600',
     subServices: [
@@ -177,6 +186,14 @@ const servicesData = [
 const Services: React.FC = () => {
   const location = useLocation();
   const servicesRefs = useRef<Record<string, HTMLElement | null>>({});
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+  
+  const toggleSection = (id: string) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
   
   useEffect(() => {
     if (location.hash) {
@@ -236,7 +253,7 @@ const Services: React.FC = () => {
           >
             <div 
               ref={setSectionRef} 
-              className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
             >
               <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
                 <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6`}>
@@ -247,9 +264,35 @@ const Services: React.FC = () => {
                   {service.title}
                 </Heading>
                 
-                <p className="text-lg text-yzag-text/80 mb-8">
-                  {service.description}
-                </p>
+                <Collapsible 
+                  open={openSections[service.id]} 
+                  onOpenChange={() => toggleSection(service.id)}
+                  className="mb-8"
+                >
+                  <div className="text-lg text-yzag-text/80 mb-4">
+                    {service.description}
+                  </div>
+                  
+                  <CollapsibleTrigger className="flex items-center text-yzag-blue hover:text-yzag-blue-dark transition-colors duration-300 font-medium mb-4">
+                    {openSections[service.id] ? (
+                      <>
+                        Show Less <ChevronUp className="ml-1 h-4 w-4" />
+                      </>
+                    ) : (
+                      <>
+                        Learn More <ChevronDown className="ml-1 h-4 w-4" />
+                      </>
+                    )}
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent>
+                    <div className="text-yzag-text/80 space-y-4 mb-6">
+                      {service.expandedDescription.split('\n\n').map((paragraph, i) => (
+                        <p key={i}>{paragraph}</p>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
                 
                 <Link to="/contact">
                   <Button>
