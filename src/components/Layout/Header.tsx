@@ -31,9 +31,6 @@ const Header: React.FC = () => {
             setIsLightSection(false);
           }
         }
-      } else {
-        // Force light section behavior for non-homepage pages
-        setIsLightSection(true);
       }
     };
 
@@ -63,13 +60,13 @@ const Header: React.FC = () => {
       return 'text-yzag-text';
     }
     
-    // For homepage hero section (dark background)
-    if (!isLightSection && !isScrolled) {
-      return 'text-white';
+    // For homepage, use dark text when scrolled or in light section
+    if (isScrolled) {
+      return 'text-yzag-text';
     }
     
-    // For scrolled position or light sections
-    return 'text-yzag-text';
+    // For homepage hero section (dark background)
+    return isLightSection ? 'text-yzag-text' : 'text-white';
   };
 
   const logoTextClass = getTextColorClass();
